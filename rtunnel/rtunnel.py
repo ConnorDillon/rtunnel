@@ -12,12 +12,10 @@ class RTunnel(Command):
         self.add_arg('rport')
         self.add_arg('target')
 
-    def is_same(self, ps):
-        cmdline = ps.cmdline()
-        if ps.name() == self.name \
-                and self.args.lport in cmdline \
-                and self.args.rport in cmdline \
-                and self.args.target in cmdline:
+    @staticmethod
+    def is_same(ps):
+        this_ps = psutil.Process()
+        if ps.name() == this_ps.name() and ps.cmdline() == this_ps.cmdline():
             return True
         else:
             return False
